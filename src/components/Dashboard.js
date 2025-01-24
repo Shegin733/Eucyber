@@ -9,7 +9,8 @@ import { styled } from '@mui/material/styles';
 import { Line } from 'react-chartjs-2';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
-
+import 'typeface-montserrat';
+import 'typeface-poppins';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 // Configurable constants
@@ -23,12 +24,15 @@ const NavItem = ({ text, icon }) => (
     button 
     sx={{
       alignItems: 'center',
+      fontFamily: 'poppins', // Apply Montserrat font
       '&:hover .MuiListItemIcon-root, &:hover .MuiListItemText-root': { color: HOVER_COLOR },
       '& .MuiListItemIcon-root': { color: ICON_COLOR },
-      '& .MuiListItemText-root': { color: ICON_COLOR, fontFamily: 'Montserrat' },
+      '& .MuiListItemText-root': { color: ICON_COLOR },
     }}
   >
-    <ListItemIcon>{icon}</ListItemIcon>
+    <ListItemIcon>
+      {icon}
+    </ListItemIcon>
     <ListItemText primary={text} />
   </ListItem>
 );
@@ -54,9 +58,10 @@ const InfoCard = ({ title, children, sx }) => (
       margin: '0 10px',
       textAlign: 'center',
       ...sx,
+      fontFamily: 'poppins',
     }}
   >
-    <Typography variant="h6">{title}</Typography>
+    <Typography variant="h6"sx={{ fontFamily: 'poppins',}}>{title}</Typography>
     {children}
   </Box>
 );
@@ -300,11 +305,11 @@ const [highestConsumption, setHighestConsumption] = useState(null);
   const getStatusStyle = (status) => {
     switch (status) {
       case 'New':
-        return { backgroundColor: 'green', color: 'white', borderRadius: '5px', padding: '2px 8px' };
+        return { backgroundColor: '#2ddfc1', color: 'white', borderRadius: '5px', padding: '2px 3px' };
       case 'Urgent':
-        return { backgroundColor: 'yellow', color: 'black', borderRadius: '5px', padding: '2px 8px' };
+        return { backgroundColor: '#FFB700', color: 'white', borderRadius: '5px', padding: '2px 3px' };
       default:
-        return { backgroundColor: 'grey', color: 'white', borderRadius: '5px', padding: '2px 8px' };
+        return { backgroundColor: '#CCCCCC', color: 'white', borderRadius: '5px', padding: '2px 3px' };
     }
   };
 
@@ -335,9 +340,10 @@ const [highestConsumption, setHighestConsumption] = useState(null);
    const CustomCheckbox = styled('div')(({ theme, checked }) => ({
     width: '20px',
     height: '20px',
-    marginRight: '5px',
+    marginRight: '15px',
     borderRadius: '50%',
-    border: `2px solid blue`,
+    borderColor:'gray',
+    border: `2px solid gray`,
     backgroundColor: checked ? 'blue' : 'transparent',
     display: 'inline-block',
     cursor: 'pointer',
@@ -385,7 +391,7 @@ const [highestConsumption, setHighestConsumption] = useState(null);
   };
   const ConsumptionSummary = ({ data, chartType }) => {
     if (!data) {
-      return <Typography variant="h6">No data available</Typography>;
+      return <Typography variant="h6"sx={{ fontFamily: 'poppins',}}>No data available</Typography>;
     }
   
     const calculateSum = (data, key) => {
@@ -402,17 +408,18 @@ const [highestConsumption, setHighestConsumption] = useState(null);
         justifyContent: 'space-between', // Space elements evenly from top to bottom
         padding: '16px',
         borderRadius: '8px',
+        fontFamily: 'poppins',
           }}>
-        <Typography variant="h6">Consumption Summary</Typography>
+        
   {elements.map((element, index) => (
     <React.Fragment key={element}>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', marginTop: '8px' }}>
-        <Typography variant="body1">{element}</Typography>
-        <Typography variant="body1">
+      <Box sx={{ alignItems:'center',textAlign:'center', marginTop: '8px' ,fontFamily: 'poppins',}}>
+        <Typography variant="body1" sx={{ color: 'gray',fontFamily: 'poppins', }}>{element}</Typography>
+        <Typography variant="body1" sx={{'fontSize':'23px',fontFamily: 'poppins', }}>
           {calculateSum(data, element)} kWh
         </Typography>
       </Box>
-      {index < elements.length - 1 && <Divider sx={{ backgroundColor: 'grey', height: '1px', margin: '8px 0' }} />}
+      {index < elements.length - 1 && <Divider sx={{ backgroundColor: '#CCCCCC', height: '1px', margin: '8px 0' ,fontFamily: 'poppins',}} />}
     </React.Fragment>
   ))}
 </Box>
@@ -440,7 +447,7 @@ const [highestConsumption, setHighestConsumption] = useState(null);
     borderRadius: '8px',
   };
   return (
-    <Box sx={{ display: "flex", height: "100vh", fontFamily: 'Montserrat', overflow: "hidden" }}>
+    <Box sx={{ fontFamily: 'poppins',display: "flex", height: "100vh", fontFamily: 'Montserrat', overflow: "hidden" }}>
       {/* Navbar */}
       <Box
         sx={{
@@ -453,12 +460,13 @@ const [highestConsumption, setHighestConsumption] = useState(null);
           top: "10%",
           bottom: "10%",
           marginLeft: "10px",
+          fontFamily: 'poppins',
         }}
       >
-        <Typography variant="h5" gutterBottom>
+        <Typography variant="h6" gutterBottom sx={{ fontFamily: 'poppins',}}>
           Energy Management
         </Typography>
-        <List>
+        <List  sx={{ fontFamily: 'poppins',}}>
           {navItems.map((item) => (
             <NavItem key={item.text} text={item.text} icon={item.icon} />
           ))}
@@ -473,13 +481,13 @@ const [highestConsumption, setHighestConsumption] = useState(null);
           padding: "10% 20px",
           boxSizing: "border-box",
           overflowY: "auto",
-          
+          fontFamily: 'poppins',
         }}
       >
         {/* Header Row */}
   
         <Container>
-            <Box sx={{backgroundColor: '#F3FDFE', padding: '20px', borderRadius: '8px', boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)', marginBottom: '20px'}}>
+            < Box sx={{backgroundColor: '#F3FDFE', padding: '20px', borderRadius: '8px', boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)', marginBottom: '20px',fontFamily: 'poppins',}}>
             <Box
     sx={{
       display: "flex",
@@ -487,28 +495,28 @@ const [highestConsumption, setHighestConsumption] = useState(null);
       alignItems: "center",
       marginBottom: "20px",
       padding: "10px 20px",
-     
+      fontFamily: 'poppins',
       borderRadius: "8px",
   
     }}
   >
     {/* Check Property Box */}
-    <Box sx={{ flexGrow: 1, textAlign: "center",width:'50px',paddingLeft:'30%',paddingRight:'10%' }}>
-      <Typography variant="h6" sx={{...commonBoxStyles, fontWeight: "bold" }}>
+    <Box sx={{ flexGrow: 1, textAlign: "center",width:'50px',paddingLeft:'30%',paddingRight:'10%',fontFamily: 'poppins', }}>
+      <Typography variant="h6" sx={{...commonBoxStyles, fontWeight: "bold",fontFamily: 'poppins', }}>
         Choose Property
       </Typography>
     </Box>
     
     {/* Notification Icons */}
-    <Box sx={{ display: "flex", alignItems: "center", gap: "15px" }}>
+    <Box sx={{ display: "flex", alignItems: "center", gap: "15px",fontFamily: 'poppins', }}>
   {/* Messages Icon */}
   <Box>
-    <FontAwesomeIcon icon={faSearch} style={{ fontSize: "19px", color: "grey" }} />
+    <FontAwesomeIcon icon={faSearch} style={{ fontSize: "19px", color: "grey",fontFamily: 'poppins', }} />
   </Box>
 
   {/* Notifications Icon */}
   <Box>
-    <FontAwesomeIcon icon={faBell} style={{ fontSize: "19px", color: "grey" }} />
+    <FontAwesomeIcon icon={faBell} style={{ fontSize: "19px", color: "grey",fontFamily: 'poppins', }} />
   </Box>
   {/* Vertical Divider */}
   <Box
@@ -516,314 +524,377 @@ const [highestConsumption, setHighestConsumption] = useState(null);
     width: "1px",
     height: "24px",
     backgroundColor: "#ccc",
-    margin: "0 150px 0 10px", // Adds the desired spacing
+    margin: "0 150px 0 10px", 
+    fontFamily: 'poppins',// Adds the desired spacing
   }}
 ></Box>
 
 
 
   {/* User Icon */}
-  <Typography variant="h6" sx={{fontWeight: "bold" }}>User 1</Typography>
+  <Typography variant="h6" sx={{fontWeight: "bold",fontFamily: 'poppins', }}>User 1</Typography>
   <Box>
    
   <FontAwesomeIcon icon={faUserCircle} style={{ fontSize: "50px", color: "blue" }} />
   </Box>
   
 </Box>
-</Box>   
-          {/* Info Cards Row */}
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
-    <InfoCard title="Overall kWh"  sx={commonBoxStyles}>
-      <Typography variant="h6">{calculateOverallSum(properties)} kWh</Typography>
-    </InfoCard>
-    <InfoCard title="Average kWh"  sx={commonBoxStyles}>
-      <Typography variant="h6">{calculateAverage(properties)} kWh</Typography>
-    </InfoCard>
-    <InfoCard title={`Lowest Consumption ${chartType === 'daily' ? 'Hour' : chartType === 'monthly' ? 'Day' : 'Month'}` }  sx={commonBoxStyles}>
-      <Typography variant="h6">
-        {lowestConsumption ? `${lowestConsumption.period}` : 'N/A'}
-      </Typography>
-    </InfoCard>
-    <InfoCard title={`Highest Consumption ${chartType === 'daily' ? 'Hour' : chartType === 'monthly' ? 'Day' : 'Month'}`} sx={commonBoxStyles}>
-      <Typography variant="h6">
-        {highestConsumption ? `${highestConsumption.period}` : 'N/A'}
-      </Typography>
-    </InfoCard>
-     
+</Box> 
+
+
+ 
+         {/* Info Cards Row */}
+{/* Info Cards Row */}
+{/* Info Cards Row */}
+<Box sx={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px', fontFamily: 'Poppins, sans-serif', backgroundColor: 'white' }}>
+  <InfoCard 
+    title="Overall kWh"  
+    sx={{
+      ...commonBoxStyles,
+      fontFamily: 'Poppins, sans-serif',
+      backgroundColor: 'white', // Set background color to white
+      boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)', // Add box shadow
+    }}
+  >
+    <Typography variant="h6" sx={{ fontFamily: 'Poppins, sans-serif' }}>
+      {calculateOverallSum(properties)} kWh
+    </Typography>
+  </InfoCard>
+  
+  <InfoCard 
+    title="Average kWh"  
+    sx={{
+      fontFamily: 'Poppins, sans-serif',
+      ...commonBoxStyles,
+      backgroundColor: 'white', // Set background color to white
+      boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)', // Add box shadow
+    }}
+  >
+    <Typography variant="h6" sx={{ fontFamily: 'Poppins, sans-serif' }}>
+      {calculateAverage(properties)} kWh
+    </Typography>
+  </InfoCard>
+  
+  <InfoCard 
+    title={`Lowest Consumption ${chartType === 'daily' ? 'Hour' : chartType === 'monthly' ? 'Day' : 'Month'}`}  
+    sx={{
+      fontFamily: 'Poppins, sans-serif',
+      ...commonBoxStyles,
+      backgroundColor: 'white', // Set background color to white
+      boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)', // Add box shadow
+    }}
+  >
+    <Typography variant="h6" sx={{ fontFamily: 'Poppins, sans-serif' }}>
+      {lowestConsumption ? `${lowestConsumption.period}` : 'N/A'}
+    </Typography>
+  </InfoCard>
+  
+  <InfoCard 
+    title={`Highest Consumption ${chartType === 'daily' ? 'Hour' : chartType === 'monthly' ? 'Day' : 'Month'}`} 
+    sx={{
+      fontFamily: 'Poppins, sans-serif',
+      ...commonBoxStyles,
+      backgroundColor: 'white', // Set background color to white
+      boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)', // Add box shadow
+    }}
+  >
+    <Typography variant="h6" sx={{ fontFamily: 'Poppins, sans-serif' }}>
+      {highestConsumption ? `${highestConsumption.period}` : 'N/A'}
+    </Typography>
+  </InfoCard>
 </Box>
+     
 {/* Line chart*/}
-{/* Line chart */}
 <InfoCard
-  title="Total Current Consumption"
-  sx={{
-    ...commonBoxStyles,
-    height: "400px",
-    backgroundColor: "white",
-    padding: "16px",
-    display: "flex",
-    flexDirection: "column",
-    marginBottom: "20px",
-    overflow: "hidden",
-    textAlign: "left",
-  }}
->
-  {/* Header Section */}
-  <Box
-    sx={{
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "flex-start",
-      marginBottom: "16px",
-    }}
-  >
-    {/* Chart Type Links */}
-    <Box
       sx={{
-        display: "flex",
-        justifyContent: "flex-start",
-        alignItems: "center",
-        marginBottom: "8px",
-        fontSize: "0.875rem",
-        paddingTop: "10px",
-      }}
-    >
-      <Link
-        href="#"
-        onClick={(e) => {
-          e.preventDefault();
-          setChartType("daily");
-        }}
-        sx={{
-          color: chartType === "daily" ? "blue" : "inherit",
-          textDecoration: "none",
-          cursor: "pointer",
-          marginRight: "16px",
-        }}
-      >
-        Daily
-      </Link>
-      <Link
-        href="#"
-        onClick={(e) => {
-          e.preventDefault();
-          setChartType("monthly");
-        }}
-        sx={{
-          color: chartType === "monthly" ? "blue" : "inherit",
-          textDecoration: "none",
-          cursor: "pointer",
-          marginRight: "16px",
-        }}
-      >
-        Monthly
-      </Link>
-      <Link
-        href="#"
-        onClick={(e) => {
-          e.preventDefault();
-          setChartType("yearly");
-        }}
-        sx={{
-          color: chartType === "yearly" ? "blue" : "inherit",
-          textDecoration: "none",
-          cursor: "pointer",
-        }}
-      >
-        Yearly
-      </Link>
-    </Box>
-
-    {/* Filter Options */}
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "flex-start",
-        marginBottom: "16px",
-        paddingTop: "10px",
-      }}
-    >
-      {chartType === "daily" && (
-        <DatePicker
-          selected={selectedDate}
-          onChange={handleDateChange}
-          dateFormat="yyyy-MM-dd"
-          customInput={<TextField label="Select Date" />}
-        />
-      )}
-      {chartType === "monthly" && (
-        <FormControl sx={{ minWidth: 120 }}>
-          <InputLabel>Month</InputLabel>
-          <Select
-            value={selectedMonth}
-            onChange={(e) => handleMonthChange(e.target.value)}
-          >
-            {months.map((month) => (
-              <MenuItem key={month.value} value={month.value}>
-                {month.label}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      )}
-      {chartType === "yearly" && (
-        <FormControl sx={{ minWidth: 120 }}>
-          <InputLabel>Year</InputLabel>
-          <Select
-            value={selectedYear}
-            onChange={(e) => handleYearChange(e.target.value)}
-          >
-            <MenuItem value="2019">2019</MenuItem>
-            <MenuItem value="2020">2020</MenuItem>
-            <MenuItem value="2021">2021</MenuItem>
-            <MenuItem value="2022">2022</MenuItem>
-          </Select>
-        </FormControl>
-      )}
-    </Box>
-  </Box>
-
-  {/* Chart and Summary Section */}
-  <Box
-    sx={{
-      display: "flex",
-      flexDirection: "row",
-      height: "calc(100% - 100px)", // Ensure height consistency
-      overflow: "hidden",
-    }}
-  >
-    {/* Line Chart */}
-    <Box sx={{ flexGrow: 1, overflow: "auto" }}>
-      {getChartData(chartType) && (
-        <Box sx={{ height: "100%", width: "100%" }}>
-          <Line
-            data={getChartData(chartType)}
-            options={{
-              responsive: true,
-              maintainAspectRatio: false,
-              plugins: {
-                legend: {
-                  position: "top",
-                  labels: {
-                    usePointStyle: true,
-                    pointStyle: "line",
-                  },
-                },
-                title: {
-                  display: true,
-                  text: `${chartType.charAt(0).toUpperCase() + chartType.slice(1)} Consumption`,
-                },
-              },
-              scales: {
-                x: {
-                  title: {
-                    display: true,
-                    text:
-                      chartType === "daily"
-                        ? "Hours"
-                        : chartType === "monthly"
-                        ? "Days"
-                        : "Months",
-                  },
-                  grid: {
-                    display: false,
-                  },
-                },
-                y: {
-                  position: "right",
-                  title: {
-                    display: true,
-                    text: "kWh",
-                  },
-                  grid: {
-                    drawOnChartArea: true,
-                    drawBorder: false,
-                  },
-                  ticks: {
-                    stepSize: 100,
-                  },
-                },
-              },
-              elements: {
-                line: {
-                  borderWidth: 2,
-                },
-                point: {
-                  radius: 0,
-                },
-              },
-            }}
-          />
-        </Box>
-      )}
-    </Box>
-
-    {/* Consumption Summary */}
-    <Box
-      sx={{
-        width: "25%",
-        marginLeft: "16px",
-        height: "100%", // Make it match the height of the parent
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-between", // Space elements evenly
+        ...commonBoxStyles,
+        height: "550px",
         backgroundColor: "white",
         padding: "16px",
-        borderRadius: "8px",
-        boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
-        marginBottom:"20%",
-        paddingTop:"0px"
+        overflow: "hidden",
+        textAlign: "left",
+        display: "flex",
+        flexDirection: "row",
+        fontFamily: 'Montserrat, sans-serif', // Apply Montserrat font to the main container
       }}
-    >
-      <ConsumptionSummary
-        data={
-          chartType === "daily"
-            ? dailyData?.hourly_data
-            : chartType === "monthly"
-            ? monthlyData?.monthly_data
-            : yearlyData?.yearly_data?.monthly_data
-        }
-        chartType={chartType}
-      />
-    </Box>
-  </Box>
-</InfoCard>
+    ><Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          width: "70%",
+          paddingLeft: "16px",
+          fontFamily: 'Montserrat, sans-serif', // Apply Montserrat font
+        }}
+      >
+        {/* Header Section */}
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "flex-start",
+            paddingBottom: "16px",
+            fontFamily: 'Montserrat, sans-serif', // Apply Montserrat font
+          }}
+        >
+          <Typography variant="h6" sx={{ fontFamily: 'Montserrat, sans-serif' }}>Total Current Consumption</Typography>
+          {/* Chart Type Links */}
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "flex-start",
+              alignItems: "center",
+              fontSize: "0.875rem",
+              paddingTop: "10px",
+              fontFamily: 'Montserrat, sans-serif', // Apply Montserrat font
+            }}
+          >
+            <Link
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                setChartType("daily");
+              }}
+              sx={{
+                color: chartType === "daily" ? "blue" : "inherit",
+                textDecoration: "none",
+                cursor: "pointer",
+                marginRight: "16px",
+                fontFamily: 'Montserrat, sans-serif', // Apply Montserrat font
+              }}
+            >
+              Daily
+            </Link>
+            <Link
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                setChartType("monthly");
+              }}
+              sx={{
+                color: chartType === "monthly" ? "blue" : "inherit",
+                textDecoration: "none",
+                cursor: "pointer",
+                marginRight: "16px",
+                fontFamily: 'Montserrat, sans-serif', // Apply Montserrat font
+              }}
+            >
+              Monthly
+            </Link>
+            <Link
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                setChartType("yearly");
+              }}
+              sx={{
+                color: chartType === "yearly" ? "blue" : "inherit",
+                textDecoration: "none",
+                cursor: "pointer",
+                fontFamily: 'Montserrat, sans-serif', // Apply Montserrat font
+              }}
+            >
+              Yearly
+            </Link>
+          </Box>
 
+          {/* Legend and Filter Options */}
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              width: "100%",
+              paddingTop: "10px",
+              fontFamily: 'Montserrat, sans-serif', // Apply Montserrat font
+            }}
+          >
+            {/* Filter Options */}
+            <Box sx={{ display: "flex", alignItems: "center" }}>
+              {chartType === "daily" && (
+                <DatePicker
+                  selected={selectedDate}
+                  onChange={handleDateChange}
+                  dateFormat="yyyy-MM-dd"
+                  customInput={<TextField label="Select Date" />}
+                />
+              )}
+              {chartType === "monthly" && (
+                <FormControl sx={{ minWidth: 120, marginLeft: "16px" }}>
+                  <InputLabel>Month</InputLabel>
+                  <Select
+                    value={selectedMonth}
+                    onChange={(e) => handleMonthChange(e.target.value)}
+                  >
+                    {months.map((month) => (
+                      <MenuItem key={month.value} value={month.value}>
+                        {month.label}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              )}
+              {chartType === "yearly" && (
+                <FormControl sx={{ minWidth: 120, marginLeft: "16px" }}>
+                  <InputLabel>Year</InputLabel>
+                  <Select
+                    value={selectedYear}
+                    onChange={(e) => handleYearChange(e.target.value)}
+                  >
+                    <MenuItem value="2019">2019</MenuItem>
+                    <MenuItem value="2020">2020</MenuItem>
+                    <MenuItem value="2021">2021</MenuItem>
+                    <MenuItem value="2022">2022</MenuItem>
+                  </Select>
+                </FormControl>
+              )}
+            </Box>
+
+            {/* Custom Legend */}
+            <Box sx={{ display: "flex", alignItems: "center", marginLeft: "16px" }}>
+              {getChartData(chartType)?.datasets.map((dataset, index) => (
+                <Box key={index} sx={{ display: "flex", alignItems: "center", marginLeft: "16px", paddingRight: "16px" }}>
+                  <span style={{
+                    display: 'inline-block',
+                    width: '20px', // Width of the line
+                    height: '2px', // Height of the line
+                    backgroundColor: dataset.borderColor, // Line color
+                    marginRight: '8px' // Space between line and label
+                  }}></span>
+                  <span>{dataset.label}</span>
+                </Box>
+              ))}
+            </Box>
+          </Box>
+        </Box>
+
+        {/* Line Chart */}
+        <Box
+          sx={{
+            overflow: "auto",
+            height: "100%", // Take remaining vertical space
+            width: "100%", // Full width of the parent
+            flexGrow: 1, // Allow it to grow and fill space
+          }}
+        >
+          {getChartData(chartType) && (
+            <Line
+              data={getChartData(chartType)}
+              options={{
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                  legend: {
+                    display: false, // Disable the default legend
+                  },
+                  title: {
+                    display: true,
+                    text: `${chartType.charAt(0).toUpperCase() + chartType.slice(1)} Consumption`,
+                  },
+                },
+                scales: {
+                  x: {
+                    grid: {
+                      display: false,
+                    },
+                  },
+                  y: {
+                    position: "right",
+                    title: {
+                      display: true,
+                      text: "kWh",
+                    },
+                    grid: {
+                      drawOnChartArea: true,
+                      drawBorder: false,
+                    },
+                    ticks: {
+                      stepSize: 100,
+                    },
+                  },
+                },
+                elements: {
+                  line: {
+                    borderWidth: 2,
+                  },
+                  point: {
+                    radius: 0,
+                  },
+                },
+              }}
+            />
+          )}
+        </Box>
+      </Box>
+
+      {/* Second Box: Consumption Summary */}
+      <Box
+        sx={{
+          width: "30%", // Allocate 30% of the width
+          height: "100%", // Match height of the parent container
+          display: "flex",
+          flexDirection: "column",
+          backgroundColor: "white",
+          padding: "0", // Remove padding to allow full height
+          borderRadius: "8px",
+          boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
+          overflow: "hidden", // Prevent overflow
+        }}
+      >
+        <ConsumptionSummary
+          data={
+            chartType === "daily"
+              ? dailyData?.hourly_data
+              : chartType === "monthly"
+              ? monthlyData?.monthly_data
+              : yearlyData?.yearly_data?.monthly_data
+          }
+          chartType={chartType}
+          sx={{
+            flexGrow: 1, // Ensures the content fills the allocated space
+            overflowY: "auto", // Scroll if content overflows
+            height: "100%", // Ensure it takes full height
+          }}
+        />
+      </Box>
+    </InfoCard>
+
+  
           {/* Properties and Tasks Row */}
-          <Box sx={{ display: 'flex', justifyContent: 'space-between',marginTop: '20px' }}>
-            <InfoCard sx={{ ...commonBoxStyles,height: '300px', overflowY: 'auto', position: 'relative', paddingTop: '5px' }}>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between',marginTop: '20px',fontFamily: 'poppins', }}>
+            <InfoCard sx={{ ...commonBoxStyles,height: '300px', overflowY: 'auto', position: 'relative', paddingTop: '5px',fontFamily: 'poppins', }}>
               <Box sx={{ padding: '5px' }}>
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <Typography variant="h6" sx={{ textAlign: 'left', fontSize: '1.25rem' }}>Properties</Typography>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center',fontFamily: 'poppins', }}>
+                  <Typography variant="h6" sx={{ textAlign: 'left', fontSize: '1.25rem',fontFamily: 'poppins', }}>Properties</Typography>
                   <Link
                     href="#"
                     onClick={(e) => {
                       e.preventDefault();
                       setShowAllProperties(!showAllProperties);
                     }}
-                    sx={{ color: 'blue', marginRight: '10px', fontSize: '1.1rem' }}
+                    sx={{ color: 'blue', marginRight: '10px', fontSize: '1.1rem',fontFamily: 'poppins' }}
                   >
                     {showAllProperties ? 'Show less' : 'View all'}
                   </Link>
                 </Box>
-                <Typography variant="subtitle1" sx={{ textAlign: 'left', fontSize: '1.1rem', marginTop: '8px' }}>Overview {chartType.charAt(0).toUpperCase() + chartType.slice(1)}</Typography>
+                <Typography variant="subtitle1" sx={{ textAlign: 'left', fontSize: '.8rem', marginTop: '8px',fontFamily: 'poppins'}}>Overview {chartType.charAt(0).toUpperCase() + chartType.slice(1)}</Typography>
                 <List>
                   {properties.map((property, index) => (
                     <React.Fragment key={index}>
-                      <ListItem sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <ListItem sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center',fontFamily: 'poppins',marginBottom:'0%' }}>
                         <Typography variant="body1">{property.title}</Typography>
-                        <Typography variant="body2" sx={{ marginLeft: '8px', color: 'gray' }}>{property.unit} kWh</Typography>
+                        <Typography variant="body2" sx={{ marginLeft: '8px', color: 'gray',fontFamily: 'poppins', }}>{property.unit} kWh</Typography>
                         </ListItem>
                       {index < properties.length - 1 && <Divider />}
                     </React.Fragment>
                   ))}
                   <React.Fragment>
-                    <ListItem sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <ListItem sx={{ display: 'flex', justifyContent: 'space-between',fontFamily: 'poppins', }}>
                       <ListItemText primary="Create New Property" />
                       <IconButton
                         onClick={() => setShowPropertyForm(!showPropertyForm)}
-                        sx={{ backgroundColor: 'white', color: 'blue', borderRadius: '50%', padding: '5px', fontSize: '16px' }}
+                        sx={{ backgroundColor: '#EEEEEE', color: 'gray', borderRadius: '100%', padding: '4px', fontSize: '16px',fontFamily: 'poppins', }}
                       >
+                      
                         <FontAwesomeIcon icon={faPlus} />
                       </IconButton>
                     </ListItem>
@@ -832,13 +903,13 @@ const [highestConsumption, setHighestConsumption] = useState(null);
                 </List>
                 {/* Form for adding new property */}
                 {showPropertyForm && (
-                  <Box sx={{ marginTop: '20px' }}>
+                  <Box sx={{ marginTop: '20px',fontFamily: 'poppins', }}>
                     <TextField
                       label="Property Title"
                       value={newProperty.title}
                       onChange={(e) => setNewProperty({ ...newProperty, title: e.target.value })}
                       fullWidth
-                      sx={{ marginBottom: '10px' }}
+                      sx={{ marginBottom: '10px' ,fontFamily: 'poppins',}}
                     />
                     <TextField
                       label="Unit"
@@ -846,7 +917,7 @@ const [highestConsumption, setHighestConsumption] = useState(null);
                       value={newProperty.unit}
                       onChange={(e) => setNewProperty({ ...newProperty, unit: e.target.value })}
                       fullWidth
-                      sx={{ marginBottom: '10px' }}
+                      sx={{ marginBottom: '10px' ,fontFamily: 'poppins',}}
                     />
                     <Button variant="contained" color="primary" onClick={handleAddProperty}>
                       Add Property
@@ -855,30 +926,30 @@ const [highestConsumption, setHighestConsumption] = useState(null);
                 )}
               </Box>
             </InfoCard>
-            <InfoCard sx={{...commonBoxStyles, height: '300px', overflowY: 'auto', position: 'relative', paddingTop: '5px' }}>
-              <Box sx={{ padding: '5px' }}>
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <Typography variant="h6" sx={{ textAlign: 'left', fontSize: '1.25rem' }}>Tasks</Typography>
+            <InfoCard sx={{...commonBoxStyles, height: '300px', overflowY: 'auto', position: 'relative', paddingTop: '2px',fontFamily: 'poppins', }}>
+              <Box sx={{ padding: '2px',fontFamily: 'poppins', }}>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center',fontFamily: 'poppins', }}>
+                  <Typography variant="h6" sx={{ textAlign: 'left', fontSize: '1.25rem' ,fontFamily: 'poppins',}}>Tasks</Typography>
                   <Link
                     href="#"
                     onClick={(e) => {
                       e.preventDefault();
                       setShowAllTasks(!showAllTasks);
                     }}
-                    sx={{ color: 'blue', marginRight: '10px', fontSize: '1.1rem' }}
+                    sx={{ color: 'blue', marginRight: '10px', fontSize: '1.1rem' ,fontFamily: 'poppins',}}
                   >
                     {showAllTasks ? 'Show less' : 'View all'}
                   </Link>
                 </Box>
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '8px' }}>
-                  <Typography variant="subtitle1" sx={{ textAlign: 'left', fontSize: '1.1rem', textDecorationColor: 'GrayText' }}>Today</Typography>
-                  <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                    <Typography variant="subtitle1" sx={{ marginRight: '8px' }}>Filter</Typography>
-                    <FormControl sx={{ minWidth: 80, height: 30, padding: 0 }}>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '8px',fontFamily: 'poppins', }}>
+                  <Typography variant="subtitle1" sx={{ textAlign: 'left', fontSize: '.8rem', textDecorationColor: 'GrayText' ,fontFamily:'poppins'}}>Today</Typography>
+                  <Box sx={{ display: 'flex', alignItems: 'center',fontFamily: 'poppins', }}>
+                    <Typography variant="subtitle1" sx={{ marginRight: '8px' ,fontFamily: 'poppins',fontSize:'.8rem'}}>Filter</Typography>
+                    <FormControl sx={{ minWidth: 80, height: 10, padding: 0 ,fontFamily: 'poppins',fontSize:'.8rem'}}>
                       <Select
                         value={filter}
                         onChange={(e) => setFilter(e.target.value)}
-                        sx={{ height: '30px', padding: '0 8px' }} // Adjust padding to reduce height
+                        sx={{ height: '20px', padding: '0 8px',fontFamily: 'poppins', fontSize:'.8rem'}} // Adjust padding to reduce height
                       >
                         <MenuItem value="all">All</MenuItem>
                         <MenuItem value="priority">Priority</MenuItem>
@@ -891,11 +962,11 @@ const [highestConsumption, setHighestConsumption] = useState(null);
                 </Box>
                 <List>
                   <React.Fragment>
-                    <ListItem sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                      <ListItemText primary="Create New Task" />
+                    <ListItem sx={{ display: 'flex', justifyContent: 'space-between',fontFamily: 'poppins', }}>
+                      <ListItemText primary="Create New Task" sx={{fontFamily: 'poppins'}} />
                       <IconButton
                         onClick={() => setShowTaskForm(!showTaskForm)}
-                        sx={{ backgroundColor: 'white', color: 'blue', borderRadius: '50%', padding: '5px', fontSize: '16px' }}
+                        sx={{ backgroundColor: '#EEEEEE', color: 'gray', borderRadius: '100%', padding: '4px', fontSize: '16px',fontFamily: 'poppins', }}
                       >
                         <FontAwesomeIcon icon={faPlus} />
                       </IconButton>
@@ -903,7 +974,7 @@ const [highestConsumption, setHighestConsumption] = useState(null);
                     <Divider />
                   </React.Fragment>
                   {showTaskForm && (
-                    <Box sx={{ marginTop: '20px' }}>
+                    <Box sx={{ marginTop: '20px',fontFamily: 'poppins', }}>
                       <TextField
                         label="Task Title"
                         value={newTask.title}
@@ -911,7 +982,7 @@ const [highestConsumption, setHighestConsumption] = useState(null);
                         fullWidth
                         sx={{ marginBottom: '10px' }}
                       />
-                      <FormControl fullWidth sx={{ marginBottom: '10px' }}>
+                      <FormControl fullWidth sx={{ marginBottom: '10px',fontFamily: 'poppins', }}>
                         <InputLabel>Status</InputLabel>
                         <Select
                           value={newTask.status}
@@ -929,7 +1000,7 @@ const [highestConsumption, setHighestConsumption] = useState(null);
                   )}
                   {displayedTasks.map((task, index) => (
                     <React.Fragment key={index}>
-                      <ListItem sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <ListItem sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center',fontFamily: 'poppins', }}>
                         <CustomCheckbox
                           checked={!!checkedTasks[task.title]}
                           onClick={() => handleCheckboxChange(task.title)}
