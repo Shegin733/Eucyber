@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Container, Typography, Box, List, ListItem, ListItemText, ListItemIcon, Link, Divider, IconButton, TextField, Button, MenuItem, Select, FormControl, InputLabel } from "@mui/material";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBook, faLightbulb, faUserTie, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faBook, faLightbulb, faUserTie, faPlus,faBell,faSearch ,faUserCircle} from '@fortawesome/free-solid-svg-icons';
 import ApartmentIcon from '@mui/icons-material/Apartment';
 import SettingsIcon from '@mui/icons-material/Settings';
 import PieChartIcon from '@mui/icons-material/PieChart';
@@ -476,8 +476,61 @@ const [highestConsumption, setHighestConsumption] = useState(null);
           
         }}
       >
+        {/* Header Row */}
+  
         <Container>
             <Box sx={{backgroundColor: '#F3FDFE', padding: '20px', borderRadius: '8px', boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)', marginBottom: '20px'}}>
+            <Box
+    sx={{
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      marginBottom: "20px",
+      padding: "10px 20px",
+     
+      borderRadius: "8px",
+  
+    }}
+  >
+    {/* Check Property Box */}
+    <Box sx={{ flexGrow: 1, textAlign: "center",width:'50px',paddingLeft:'30%',paddingRight:'10%' }}>
+      <Typography variant="h6" sx={{...commonBoxStyles, fontWeight: "bold" }}>
+        Choose Property
+      </Typography>
+    </Box>
+    
+    {/* Notification Icons */}
+    <Box sx={{ display: "flex", alignItems: "center", gap: "15px" }}>
+  {/* Messages Icon */}
+  <Box>
+    <FontAwesomeIcon icon={faSearch} style={{ fontSize: "19px", color: "grey" }} />
+  </Box>
+
+  {/* Notifications Icon */}
+  <Box>
+    <FontAwesomeIcon icon={faBell} style={{ fontSize: "19px", color: "grey" }} />
+  </Box>
+  {/* Vertical Divider */}
+  <Box
+  sx={{
+    width: "1px",
+    height: "24px",
+    backgroundColor: "#ccc",
+    margin: "0 150px 0 10px", // Adds the desired spacing
+  }}
+></Box>
+
+
+
+  {/* User Icon */}
+  <Typography variant="h6" sx={{fontWeight: "bold" }}>User 1</Typography>
+  <Box>
+   
+  <FontAwesomeIcon icon={faUserCircle} style={{ fontSize: "50px", color: "blue" }} />
+  </Box>
+  
+</Box>
+</Box>   
           {/* Info Cards Row */}
           <Box sx={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
     <InfoCard title="Overall kWh"  sx={commonBoxStyles}>
@@ -500,16 +553,52 @@ const [highestConsumption, setHighestConsumption] = useState(null);
 </Box>
 {/* Line chart*/}
 {/* Line chart */}
-<InfoCard title="Total Current Consumption" sx={{ ...commonBoxStyles, height: '400px', backgroundColor: 'white', padding: '16px', display: 'flex', flexDirection: 'column', marginBottom: '20px', overflow: 'hidden', textAlign: 'left' }}>
-  <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginBottom: '16px' }}>
-    <Box sx={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', marginBottom: '8px', fontSize: '0.875rem',paddingTop: '10px' }}>
+<InfoCard
+  title="Total Current Consumption"
+  sx={{
+    ...commonBoxStyles,
+    height: "400px",
+    backgroundColor: "white",
+    padding: "16px",
+    display: "flex",
+    flexDirection: "column",
+    marginBottom: "20px",
+    overflow: "hidden",
+    textAlign: "left",
+  }}
+>
+  {/* Header Section */}
+  <Box
+    sx={{
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "flex-start",
+      marginBottom: "16px",
+    }}
+  >
+    {/* Chart Type Links */}
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "flex-start",
+        alignItems: "center",
+        marginBottom: "8px",
+        fontSize: "0.875rem",
+        paddingTop: "10px",
+      }}
+    >
       <Link
         href="#"
         onClick={(e) => {
           e.preventDefault();
-          setChartType('daily');
+          setChartType("daily");
         }}
-        sx={{ color: chartType === 'daily' ? 'blue' : 'inherit', textDecoration: 'none', cursor: 'pointer', marginRight: '16px' }}
+        sx={{
+          color: chartType === "daily" ? "blue" : "inherit",
+          textDecoration: "none",
+          cursor: "pointer",
+          marginRight: "16px",
+        }}
       >
         Daily
       </Link>
@@ -517,9 +606,14 @@ const [highestConsumption, setHighestConsumption] = useState(null);
         href="#"
         onClick={(e) => {
           e.preventDefault();
-          setChartType('monthly');
+          setChartType("monthly");
         }}
-        sx={{ color: chartType === 'monthly' ? 'blue' : 'inherit', textDecoration: 'none', cursor: 'pointer', marginRight: '16px' }}
+        sx={{
+          color: chartType === "monthly" ? "blue" : "inherit",
+          textDecoration: "none",
+          cursor: "pointer",
+          marginRight: "16px",
+        }}
       >
         Monthly
       </Link>
@@ -527,15 +621,29 @@ const [highestConsumption, setHighestConsumption] = useState(null);
         href="#"
         onClick={(e) => {
           e.preventDefault();
-          setChartType('yearly');
+          setChartType("yearly");
         }}
-        sx={{ color: chartType === 'yearly' ? 'blue' : 'inherit', textDecoration: 'none', cursor: 'pointer' }}
+        sx={{
+          color: chartType === "yearly" ? "blue" : "inherit",
+          textDecoration: "none",
+          cursor: "pointer",
+        }}
       >
         Yearly
       </Link>
     </Box>
-    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginBottom: '16px', paddingTop: '10px' }}>
-      {chartType === 'daily' && (
+
+    {/* Filter Options */}
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "flex-start",
+        marginBottom: "16px",
+        paddingTop: "10px",
+      }}
+    >
+      {chartType === "daily" && (
         <DatePicker
           selected={selectedDate}
           onChange={handleDateChange}
@@ -543,7 +651,7 @@ const [highestConsumption, setHighestConsumption] = useState(null);
           customInput={<TextField label="Select Date" />}
         />
       )}
-      {chartType === 'monthly' && (
+      {chartType === "monthly" && (
         <FormControl sx={{ minWidth: 120 }}>
           <InputLabel>Month</InputLabel>
           <Select
@@ -558,7 +666,7 @@ const [highestConsumption, setHighestConsumption] = useState(null);
           </Select>
         </FormControl>
       )}
-      {chartType === 'yearly' && (
+      {chartType === "yearly" && (
         <FormControl sx={{ minWidth: 120 }}>
           <InputLabel>Year</InputLabel>
           <Select
@@ -574,10 +682,20 @@ const [highestConsumption, setHighestConsumption] = useState(null);
       )}
     </Box>
   </Box>
-  <Box sx={{ display: 'flex', flexDirection: 'row', height: 'calc(100% - 100px)', overflow: 'hidden' }}>
-    <Box sx={{ flexGrow: 1, overflow: 'auto' }}>
+
+  {/* Chart and Summary Section */}
+  <Box
+    sx={{
+      display: "flex",
+      flexDirection: "row",
+      height: "calc(100% - 100px)", // Ensure height consistency
+      overflow: "hidden",
+    }}
+  >
+    {/* Line Chart */}
+    <Box sx={{ flexGrow: 1, overflow: "auto" }}>
       {getChartData(chartType) && (
-        <Box sx={{ height: '100%', width: '100%' }}>
+        <Box sx={{ height: "100%", width: "100%" }}>
           <Line
             data={getChartData(chartType)}
             options={{
@@ -585,10 +703,10 @@ const [highestConsumption, setHighestConsumption] = useState(null);
               maintainAspectRatio: false,
               plugins: {
                 legend: {
-                  position: 'top',
+                  position: "top",
                   labels: {
                     usePointStyle: true,
-                    pointStyle: 'line',
+                    pointStyle: "line",
                   },
                 },
                 title: {
@@ -600,17 +718,22 @@ const [highestConsumption, setHighestConsumption] = useState(null);
                 x: {
                   title: {
                     display: true,
-                    text: chartType === 'daily' ? 'Hours' : chartType === 'monthly' ? 'Days' : 'Months',
+                    text:
+                      chartType === "daily"
+                        ? "Hours"
+                        : chartType === "monthly"
+                        ? "Days"
+                        : "Months",
                   },
                   grid: {
                     display: false,
                   },
                 },
                 y: {
-                  position: 'right',
+                  position: "right",
                   title: {
                     display: true,
-                    text: 'kWh',
+                    text: "kWh",
                   },
                   grid: {
                     drawOnChartArea: true,
@@ -634,24 +757,38 @@ const [highestConsumption, setHighestConsumption] = useState(null);
         </Box>
       )}
     </Box>
-    <Box sx={{ width: '25%', marginLeft: '16px',paddingTop:'0' }}>
+
+    {/* Consumption Summary */}
+    <Box
+      sx={{
+        width: "25%",
+        marginLeft: "16px",
+        height: "100%", // Make it match the height of the parent
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between", // Space elements evenly
+        backgroundColor: "white",
+        padding: "16px",
+        borderRadius: "8px",
+        boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
+        marginBottom:"20%",
+        paddingTop:"0px"
+      }}
+    >
       <ConsumptionSummary
-        data={chartType === 'daily' ? dailyData?.hourly_data : chartType === 'monthly' ? monthlyData?.monthly_data : yearlyData?.yearly_data?.monthly_data}
+        data={
+          chartType === "daily"
+            ? dailyData?.hourly_data
+            : chartType === "monthly"
+            ? monthlyData?.monthly_data
+            : yearlyData?.yearly_data?.monthly_data
+        }
         chartType={chartType}
-        sx={{
-          backgroundColor: 'white',
-          height: '100%', // Make it equivalent to the height of the parent box
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between', // Space elements evenly from top to bottom
-          padding: '16px',
-          borderRadius: '8px',
-          boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
-        }}
       />
     </Box>
   </Box>
 </InfoCard>
+
           {/* Properties and Tasks Row */}
           <Box sx={{ display: 'flex', justifyContent: 'space-between',marginTop: '20px' }}>
             <InfoCard sx={{ ...commonBoxStyles,height: '300px', overflowY: 'auto', position: 'relative', paddingTop: '5px' }}>
