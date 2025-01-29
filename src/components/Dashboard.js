@@ -143,7 +143,7 @@ const [highestConsumption, setHighestConsumption] = useState(null);
     } else if (chartType === 'monthly') {
       url = `https://run.mocky.io/v3/bdd3aeac-48c4-4a19-9a9b-f77b48e1211e?month=${selectedMonth}`;
     } else if (chartType === 'yearly') {
-      url = `https://run.mocky.io/v3/5ae9e294-975c-4faa-9fe9-58f474e866cd?year=${selectedYear}`;
+      url = `https://run.mocky.io/v3/390243e2-5f2e-4009-a42d-d05d9600e922?year=${selectedYear}`;
     }
 
     fetch(url)
@@ -213,7 +213,7 @@ const [highestConsumption, setHighestConsumption] = useState(null);
       .catch((error) => console.error("Error fetching monthly data:", error));
   };
   useEffect(() => {
-    fetch("https://run.mocky.io/v3/5ae9e294-975c-4faa-9fe9-58f474e866cd")
+    fetch("https://run.mocky.io/v3/390243e2-5f2e-4009-a42d-d05d9600e922")
       .then((response) => response.json())
       .then((data) => {
         console.log("Fetched yearly data:", data); // Log the fetched data
@@ -262,9 +262,9 @@ const [highestConsumption, setHighestConsumption] = useState(null);
     if (type === 'daily') {
       return period.split('-').pop(); // Extract the hour
     } else if (type === 'monthly') {
-      const month = period.split('-')[1]; // Extract the month
+      const month = period.split('-')[2]; // Extract the month
       const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-      return monthNames[parseInt(month, 10) - 1]; // Convert month number to month name
+      return `Day ${month}` //return / // Convert month number to month name
     } else if (type === 'yearly') {
       return period.split('-')[0]; // Extract the year
     }
@@ -372,7 +372,7 @@ const [highestConsumption, setHighestConsumption] = useState(null);
         datasets[2].data.push(data.hourly_data[hour].Property3);
       });
     } else if (type === 'monthly' && monthlyData) {
-      labels = Array.from({ length: 28 }, (_, i) => `Day ${i + 1}`);
+      labels = Object.keys(data.monthly_data);
       Object.keys(data.monthly_data).forEach((day) => {
         datasets[0].data.push(data.monthly_data[day].Property1);
         datasets[1].data.push(data.monthly_data[day].Property2);
@@ -877,30 +877,65 @@ const [highestConsumption, setHighestConsumption] = useState(null);
                   </Link>
                 </Box>
                 <Typography variant="subtitle1" sx={{ textAlign: 'left', fontSize: '.8rem', marginTop: '8px',fontFamily: 'poppins'}}>Overview {chartType.charAt(0).toUpperCase() + chartType.slice(1)}</Typography>
-                <List>
-                  {properties.map((property, index) => (
-                    <React.Fragment key={index}>
-                      <ListItem sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center',fontFamily: 'poppins',marginBottom:'0%' }}>
-                        <Typography variant="body1">{property.title}</Typography>
-                        <Typography variant="body2" sx={{ marginLeft: '8px', color: 'gray',fontFamily: 'poppins', }}>{property.unit} kWh</Typography>
-                        </ListItem>
-                      {index < properties.length - 1 && <Divider />}
-                    </React.Fragment>
-                  ))}
-                  <React.Fragment>
-                    <ListItem sx={{ display: 'flex', justifyContent: 'space-between',fontFamily: 'poppins', }}>
-                      <ListItemText primary="Create New Property" />
-                      <IconButton
-                        onClick={() => setShowPropertyForm(!showPropertyForm)}
-                        sx={{ backgroundColor: '#EEEEEE', color: 'gray', borderRadius: '100%', padding: '4px', fontSize: '16px',fontFamily: 'poppins', }}
-                      >
-                      
-                        <FontAwesomeIcon icon={faPlus} />
-                      </IconButton>
-                    </ListItem>
-                    <Divider />
-                  </React.Fragment>
-                </List>
+                <List sx={{ display: 'flex', flexDirection: 'column', height: '100%',  }}
+>
+  {properties.map((property, index) => (
+    <React.Fragment key={index}>
+      <ListItem
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          fontFamily: 'poppins',
+          marginBottom: '0%',
+        }}
+      >
+        <Typography variant="body1">{property.title}</Typography>
+        <Typography
+          variant="body2"
+          sx={{
+            marginLeft: '8px',
+            color: 'gray',
+            fontFamily: 'poppins',
+          }}
+        >
+          {property.unit} kWh
+        </Typography>
+      </ListItem>
+      {index < properties.length - 1 && <Divider />}
+    </React.Fragment>
+  ))}
+
+  {/* Spacer to push "Create New Property" to the bottom */}
+  <Box sx={{ flexGrow: 1 }} />
+
+  <React.Fragment>
+    <ListItem
+      sx={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        fontFamily: 'poppins',
+      }}
+    >
+      <ListItemText primary="Create New Property" />
+      <IconButton
+        onClick={() => setShowPropertyForm(!showPropertyForm)}
+        sx={{
+          backgroundColor: '#EEEEEE',
+          color: 'gray',
+          borderRadius: '100%',
+          padding: '4px',
+          fontSize: '16px',
+          fontFamily: 'poppins',
+        }}
+      >
+        <FontAwesomeIcon icon={faPlus} />
+      </IconButton>
+    </ListItem>
+    <Divider />
+  </React.Fragment>
+</List>
+
                 {/* Form for adding new property */}
                 {showPropertyForm && (
                   <Box sx={{ marginTop: '20px',fontFamily: 'poppins', }}>
